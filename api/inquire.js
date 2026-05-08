@@ -90,7 +90,36 @@ export default async function handler(req) {
 
   if (!emailRes.ok) {
     console.error('Resend error:', await emailRes.text());
-    // Data saved — don't fail the whole request over notification
+  }
+
+  // ── Append to Google Sheet ──
+  // Google Apps Script redirects POST → GET; capture the redirect URL then re-POST to it.
+  const sheetUrl = process.env.GOOGLE_SHEET_WEBHOOK;
+  if (sheetUrl) {
+    try {
+      const sheetPayload = JSON.stringify({ name, email, phone, event_type, event_date, guest_count, message });
+
+      // Step 1: hit the script URL with redirect:manual to get the real destination
+      const r1 = await fetch(sheetUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: sheetPayload,
+        redirect: 'manual',
+      });
+
+      const redirectUrl = r1.headers.get('location');
+      if (redirectUrl) {
+        // Step 2: POST directly to the resolved URL (no further redirect)
+        await fetch(redirectUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: sheetPayload,
+          redirect: 'manual',
+        });
+      }
+    } catch (err) {
+      console.error('Google Sheets error:', err);
+    }
   }
 
   return new Response(JSON.stringify({ success: true }), { status: 200 });
