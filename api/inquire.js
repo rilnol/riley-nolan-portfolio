@@ -1,7 +1,7 @@
 export const config = { runtime: 'edge' };
 
 const SUPABASE_URL = 'https://dazoheoggmfkjllxsebl.supabase.co';
-const NOTIFY_TO    = 'x91503@gmail.com';
+const NOTIFY_TO    = 'rileynolan013@gmail.com';
 
 export default async function handler(req) {
   if (req.method !== 'POST') {
