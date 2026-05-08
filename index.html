@@ -563,51 +563,102 @@
     .loc-icon { font-size: 1.1rem; flex-shrink: 0; }
     .loc-label { color: var(--amber-lt); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: .15rem; }
 
-    /* ── Contact ── */
+    /* ── Contact / Form ── */
     #contact {
       background: linear-gradient(135deg, #1A0E08 0%, #2C1A0E 50%, #1A2010 100%);
     }
-    .contact-wrap {
-      max-width: 760px; margin: 0 auto; text-align: center;
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 5rem;
+      align-items: start;
     }
-    #contact .section-eyebrow { justify-content: center; }
+    .contact-info {}
     #contact .section-eyebrow::before { display: none; }
-    .contact-title { font-size: clamp(2rem, 4vw, 3rem); color: var(--cream); font-weight: 400; margin-bottom: 1rem; }
+    .contact-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--cream); font-weight: 400; margin-bottom: 1rem; line-height: 1.15; }
     .contact-sub {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .95rem;
-      color: rgba(245,236,215,.55);
-      margin-bottom: 3rem;
-      line-height: 1.7;
+      font-size: .88rem;
+      color: rgba(245,236,215,.5);
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
     }
-    .contact-grid {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 1rem; margin-bottom: 3rem;
+    .contact-details { display: flex; flex-direction: column; gap: .7rem; }
+    .contact-detail-item {
+      display: flex; gap: .9rem; align-items: flex-start;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .83rem; color: rgba(245,236,215,.55);
     }
-    .contact-card {
-      padding: 2rem 1.2rem;
-      background: rgba(212,136,58,.06);
-      border: 1px solid rgba(212,136,58,.15);
+    .contact-detail-icon { font-size: 1rem; flex-shrink: 0; margin-top: .05rem; }
+    .contact-detail-label { display: block; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--amber); margin-bottom: .15rem; }
+
+    /* form */
+    .inquiry-form {
+      background: rgba(245,236,215,.04);
+      border: 1px solid rgba(212,136,58,.18);
       border-radius: var(--radius);
+      padding: 2.8rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: .45rem; margin-bottom: 0; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(212,136,58,.75);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(245,236,215,.06);
+      border: 1px solid rgba(212,136,58,.2);
+      border-radius: 5px;
+      padding: .75rem 1rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .88rem;
+      color: var(--cream);
       transition: border-color var(--ease), background var(--ease);
+      width: 100%;
+      outline: none;
+      -webkit-appearance: none;
     }
-    .contact-card:hover {
-      border-color: rgba(212,136,58,.4);
-      background: rgba(212,136,58,.1);
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,236,215,.25); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: rgba(212,136,58,.6);
+      background: rgba(245,236,215,.09);
     }
-    .contact-card-icon { font-size: 1.8rem; margin-bottom: .8rem; display: block; }
-    .contact-card-label {
+    .form-select option { background: #2C1A0E; color: var(--cream); }
+    .form-textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+    .form-submit {
+      width: 100%; margin-top: 1.6rem;
+      padding: 1rem; font-size: .82rem;
+      position: relative;
+    }
+    .form-submit:disabled { opacity: .6; cursor: not-allowed; }
+    .form-status {
+      margin-top: 1.2rem;
+      padding: 1rem 1.2rem;
+      border-radius: 6px;
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--amber); margin-bottom: .4rem;
+      font-size: .84rem;
+      display: none;
     }
-    .contact-card-val {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .84rem; color: rgba(245,236,215,.7);
+    .form-status.success {
+      background: rgba(40,120,40,.15);
+      border: 1px solid rgba(60,160,60,.3);
+      color: #90d890;
     }
-    .contact-card-val a { color: rgba(245,236,215,.7); text-decoration: none; }
-    .contact-card-val a:hover { color: var(--amber-lt); }
-    .contact-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .form-status.error {
+      background: rgba(160,40,40,.15);
+      border: 1px solid rgba(200,60,60,.3);
+      color: #e89090;
+    }
+
+    @media (max-width: 860px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 580px) {
+      .form-row { grid-template-columns: 1fr; }
+      .inquiry-form { padding: 1.8rem 1.4rem; }
+    }
 
     /* ── Footer ── */
     footer {
@@ -1007,41 +1058,103 @@
 </section>
 
 <!-- ── Contact ── -->
-<section id="contact" style="background: linear-gradient(135deg, #1A0E08 0%, #2C1A0E 50%, #1A2010 100%); padding: 7rem 0;">
+<section id="contact" style="padding: 7rem 0;">
   <div class="section-wrap">
-    <div class="contact-wrap">
-      <div class="fade-up">
-        <p class="section-eyebrow" style="justify-content:center; margin-bottom:.7rem;">
-          Book Your Event
-        </p>
-        <h2 class="contact-title">Ready to make<br>something unforgettable?</h2>
+    <div class="contact-layout">
+
+      <!-- Left: info -->
+      <div class="contact-info fade-up">
+        <p class="section-eyebrow" style="margin-bottom:.8rem;">Book Your Event</p>
+        <h2 class="contact-title">Ready to make<br>something<br>unforgettable?</h2>
         <p class="contact-sub">
-          Whether you're planning a wedding, a concert, a family reunion, or a private gathering — we'd love to have you at The Bar-N. Reach out and let's start the conversation.
+          Whether you're planning a wedding, a concert, a family reunion, or a private gathering — fill out the form and we'll be in touch shortly.
         </p>
-
-        <div class="contact-grid">
-          <div class="contact-card">
-            <span class="contact-card-icon">📧</span>
-            <p class="contact-card-label">Email</p>
-            <p class="contact-card-val"><a href="mailto:info@thebarn-laketoxaway.com">info@thebarn-laketoxaway.com</a></p>
+        <div class="contact-details">
+          <div class="contact-detail-item">
+            <span class="contact-detail-icon">📍</span>
+            <div>
+              <span class="contact-detail-label">Location</span>
+              Lake Toxaway, NC
+            </div>
           </div>
-          <div class="contact-card">
-            <span class="contact-card-icon">📍</span>
-            <p class="contact-card-label">Location</p>
-            <p class="contact-card-val">Lake Toxaway, NC</p>
+          <div class="contact-detail-item">
+            <span class="contact-detail-icon">👨‍👩‍👧‍👦</span>
+            <div>
+              <span class="contact-detail-label">Hosted by</span>
+              Ben Nolan &amp; The Nolan Family
+            </div>
           </div>
-          <div class="contact-card">
-            <span class="contact-card-icon">👨‍👩‍👧‍👦</span>
-            <p class="contact-card-label">Host</p>
-            <p class="contact-card-val">Ben Nolan &amp; The Nolan Family</p>
+          <div class="contact-detail-item">
+            <span class="contact-detail-icon">🎣</span>
+            <div>
+              <span class="contact-detail-label">On the grounds</span>
+              Barn · Pond · Stream · Open meadows
+            </div>
           </div>
-        </div>
-
-        <div class="contact-btns">
-          <a href="mailto:info@thebarn-laketoxaway.com" class="btn btn-primary">Send an Inquiry</a>
-          <a href="#about" class="btn btn-outline">Learn More</a>
         </div>
       </div>
+
+      <!-- Right: form -->
+      <div class="fade-up">
+        <form class="inquiry-form" id="inquiry-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="f-name">Your Name *</label>
+              <input class="form-input" id="f-name" name="name" type="text" placeholder="Full name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-email">Email Address *</label>
+              <input class="form-input" id="f-email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="f-phone">Phone Number</label>
+              <input class="form-input" id="f-phone" name="phone" type="tel" placeholder="(555) 000-0000">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-type">Event Type</label>
+              <select class="form-select" id="f-type" name="event_type">
+                <option value="">Select type…</option>
+                <option>Wedding</option>
+                <option>Live Music / Concert</option>
+                <option>Family Reunion</option>
+                <option>Corporate Event</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="f-date">Preferred Date</label>
+              <input class="form-input" id="f-date" name="event_date" type="date">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="f-guests">Expected Guests</label>
+              <select class="form-select" id="f-guests" name="guest_count">
+                <option value="">Select range…</option>
+                <option>Under 25</option>
+                <option>25–50</option>
+                <option>50–100</option>
+                <option>100–200</option>
+                <option>200+</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label" for="f-msg">Tell us about your event</label>
+            <textarea class="form-textarea" id="f-msg" name="message" placeholder="Share any details about your vision, questions, or special requests…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit" id="submit-btn">Send Inquiry</button>
+          <div class="form-status success" id="form-success">
+            ✓ &nbsp;Your inquiry has been sent! Ben will be in touch soon.
+          </div>
+          <div class="form-status error" id="form-error">
+            Something went wrong — please try again or email us directly.
+          </div>
+        </form>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1094,6 +1207,41 @@
     if (window.scrollY > 80) scrollHint.style.opacity = '0';
     else scrollHint.style.opacity = '1';
   }, { passive: true });
+
+  // ── Inquiry form submission ──
+  document.getElementById('inquiry-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form   = e.target;
+    const btn    = document.getElementById('submit-btn');
+    const success = document.getElementById('form-success');
+    const error   = document.getElementById('form-error');
+
+    success.style.display = 'none';
+    error.style.display   = 'none';
+    btn.disabled  = true;
+    btn.textContent = 'Sending…';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      const res = await fetch('/api/inquire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || 'Request failed');
+
+      success.style.display = 'block';
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      error.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Inquiry';
+    }
+  });
 </script>
 </body>
 </html>
