@@ -3,142 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Riley Nolan — Portfolio</title>
+  <title>The Bar-N — Lake Toxaway, NC</title>
   <style>
-    /* ── Reset & base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:   #1c2128;
-      --navy2:  #252d35;
-      --gold:   #c8963e;
-      --gold-lt:#e0b366;
-      --white:  #f0f0ee;
-      --gray:   #708090;
-      --text:   #c8cdd2;
-      --card:   #20272f;
-      --border: rgba(200,150,62,.22);
-      --radius: 12px;
-      --transition: .35s cubic-bezier(.4,0,.2,1);
+      --amber:    #D4883A;
+      --amber-lt: #E8A85A;
+      --amber-dk: #A0602A;
+      --cream:    #F5ECD7;
+      --cream-dk: #E8D9BE;
+      --bark:     #2C1A0E;
+      --bark2:    #3D2512;
+      --sky:      #1C2B4A;
+      --forest:   #1E3020;
+      --text:     #4A3420;
+      --text-lt:  #6B5040;
+      --gray:     #8B7060;
+      --border:   rgba(212,136,58,.22);
+      --radius:   10px;
+      --ease:     .38s cubic-bezier(.4,0,.2,1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Georgia', 'Times New Roman', serif;
-      background: #111418;
+      background: var(--cream);
       color: var(--text);
       line-height: 1.7;
     }
 
-    /* ── Shader canvas ── */
-    #shader-bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      display: block;
-    }
-
-    a { color: var(--gold); text-decoration: none; }
-    a:hover { color: var(--gold-lt); }
-
     /* ── Nav ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem;
-      height: 64px;
-      background: rgba(5,8,18,.75);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
+      height: 68px;
+      background: rgba(28,16,8,.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212,136,58,.2);
     }
 
     .nav-logo {
-      font-size: .9rem;
-      letter-spacing: .18em;
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .nav-logo-main {
+      font-size: 1.1rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--amber-lt);
+      font-family: 'Georgia', serif;
+    }
+    .nav-logo-sub {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-weight: 600;
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(212,136,58,.55);
     }
 
     .nav-links {
-      display: flex; gap: 2rem; list-style: none;
+      display: flex; gap: 2.2rem; list-style: none;
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .8rem;
-      letter-spacing: .12em;
+      font-size: .74rem;
+      letter-spacing: .14em;
       text-transform: uppercase;
     }
 
-    .nav-links a { color: var(--gray); transition: color var(--transition); }
-    .nav-links a:hover { color: var(--gold); }
+    .nav-links a {
+      color: rgba(245,236,215,.55);
+      text-decoration: none;
+      transition: color var(--ease);
+    }
+    .nav-links a:hover { color: var(--amber-lt); }
+
+    .nav-cta {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .55rem 1.6rem;
+      border-radius: 4px;
+      background: var(--amber);
+      color: var(--bark);
+      font-weight: 700;
+      text-decoration: none;
+      transition: background var(--ease);
+    }
+    .nav-cta:hover { background: var(--amber-lt); }
 
     /* ── Hero ── */
     #hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 100px 2.5rem 4rem;
       position: relative;
+      min-height: 100vh;
+      display: flex; align-items: flex-end;
       overflow: hidden;
     }
 
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background: linear-gradient(to bottom, rgba(5,8,18,0) 60%, rgba(5,8,18,.85) 100%);
+    .hero-photo {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(15,8,4,.15) 0%,
+          rgba(15,8,4,.05) 35%,
+          rgba(15,8,4,.55) 72%,
+          rgba(15,8,4,.88) 100%
+        ),
+        url('barn.jpg') center/cover no-repeat;
+      /* Fallback CSS sunset if photo not present */
     }
 
-    .hero-rule {
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    .hero-photo-fallback {
+      position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 120% 60% at 50% 60%, #E8520A 0%, #C44010 22%, #7A1E08 42%, transparent 65%),
+        radial-gradient(ellipse 80% 50% at 30% 58%, #F07820 0%, #D04808 30%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 72% 62%, #E86218 0%, #B83808 25%, transparent 55%),
+        linear-gradient(to bottom, #2C3E6B 0%, #3C2A5A 28%, #6A2818 48%, #1A1008 100%);
     }
 
-    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    /* Ground strip */
+    .hero-photo::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 28%;
+      background: linear-gradient(to top, rgba(8,16,8,.92) 0%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 2.5rem 7rem;
+      max-width: 900px;
+    }
 
     .hero-eyebrow {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .75rem;
-      letter-spacing: .28em;
+      font-size: .72rem;
+      letter-spacing: .32em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
+      color: var(--amber-lt);
+      margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: .9rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2.5rem; height: 1px;
+      background: var(--amber);
     }
 
     .hero-name {
-      font-size: clamp(3rem, 7vw, 6rem);
+      font-size: clamp(3.5rem, 10vw, 8rem);
       font-weight: 400;
-      line-height: 1.05;
-      color: var(--white);
-      margin-bottom: 1.2rem;
+      line-height: .95;
+      color: var(--cream);
+      margin-bottom: 1.4rem;
+      text-shadow: 0 4px 40px rgba(0,0,0,.5);
     }
-
-    .hero-name span { color: var(--gold); }
+    .hero-name em {
+      font-style: italic;
+      color: var(--amber-lt);
+    }
 
     .hero-sub {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: 1.05rem;
-      color: var(--gray);
-      max-width: 560px;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
+      color: rgba(245,236,215,.75);
+      max-width: 520px;
+      margin-bottom: 2.8rem;
+      line-height: 1.65;
     }
 
-    .hero-tags {
-      display: flex; flex-wrap: wrap; gap: .7rem;
-      margin-bottom: 3rem;
+    .hero-badges {
+      display: flex; flex-wrap: wrap; gap: .65rem;
+      margin-bottom: 2.8rem;
     }
 
-    .tag {
+    .badge {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .72rem;
-      letter-spacing: .12em;
+      font-size: .68rem;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      border: 1px solid var(--border);
-      padding: .35rem .85rem;
+      border: 1px solid rgba(212,136,58,.4);
+      padding: .38rem .9rem;
       border-radius: 999px;
-      color: var(--gold);
-      background: rgba(200,150,62,.06);
+      color: var(--amber-lt);
+      background: rgba(212,136,58,.08);
+      backdrop-filter: blur(8px);
     }
 
     .hero-cta {
@@ -147,928 +200,863 @@
 
     .btn {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .78rem;
-      letter-spacing: .14em;
+      font-size: .76rem;
+      letter-spacing: .16em;
       text-transform: uppercase;
-      padding: .75rem 2rem;
-      border-radius: 6px;
-      transition: all var(--transition);
+      padding: .85rem 2.2rem;
+      border-radius: 5px;
       cursor: pointer;
       border: none;
+      text-decoration: none;
+      transition: all var(--ease);
+      display: inline-block;
     }
-
-    .btn-primary {
-      background: var(--gold);
-      color: var(--navy);
-      font-weight: 700;
-    }
-    .btn-primary:hover { background: var(--gold-lt); color: var(--navy); }
-
+    .btn-primary { background: var(--amber); color: var(--bark); font-weight: 700; }
+    .btn-primary:hover { background: var(--amber-lt); }
     .btn-outline {
       background: transparent;
-      color: var(--gold);
-      border: 1px solid var(--border);
+      color: var(--cream);
+      border: 1px solid rgba(245,236,215,.35);
     }
-    .btn-outline:hover { background: rgba(200,150,62,.1); color: var(--gold-lt); }
+    .btn-outline:hover { border-color: var(--amber); color: var(--amber-lt); }
+
+    /* ── Scroll hint ── */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(245,236,215,.4);
+    }
+    .scroll-arrow {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(212,136,58,.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: .4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
 
     /* ── Section shell ── */
-    section { padding: 7rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+    .section-wrap { padding: 7rem 2.5rem; max-width: 1120px; margin: 0 auto; }
 
-    .section-header {
-      display: flex; align-items: center; gap: 1.5rem;
-      margin-bottom: 4rem;
-    }
+    .section-header { margin-bottom: 3.5rem; }
 
-    .section-label {
+    .section-eyebrow {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .72rem;
-      letter-spacing: .26em;
+      font-size: .68rem;
+      letter-spacing: .28em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--amber);
+      margin-bottom: .7rem;
+      display: flex; align-items: center; gap: .8rem;
     }
-
-    .section-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .section-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: var(--amber);
     }
 
     .section-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      color: var(--white);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--bark);
       font-weight: 400;
-      margin-bottom: 1rem;
+      line-height: 1.15;
     }
+    .section-title em { color: var(--amber-dk); font-style: italic; }
 
-    /* ── Stats bar ── */
+    /* ── Stats ── */
     #stats {
-      background: rgba(10, 18, 40, 0.55);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 0;
+      background: var(--bark);
+      border-top: 3px solid var(--amber);
     }
-
     .stats-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      max-width: 1120px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4,1fr);
       padding: 0 2.5rem;
     }
-
     .stat {
-      padding: 2.8rem 2rem;
+      padding: 3rem 1.5rem;
       text-align: center;
-      border-right: 1px solid var(--border);
-      transition: background var(--transition);
+      border-right: 1px solid rgba(212,136,58,.15);
+      transition: background var(--ease);
     }
     .stat:last-child { border-right: none; }
-    .stat:hover { background: rgba(200,150,62,.05); }
-
+    .stat:hover { background: rgba(212,136,58,.06); }
     .stat-num {
-      font-size: 2.4rem;
-      color: var(--gold);
-      font-weight: 400;
       display: block;
+      font-size: 2.6rem;
+      color: var(--amber-lt);
       line-height: 1;
       margin-bottom: .5rem;
     }
-
     .stat-label {
       font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .7rem;
+      font-size: .68rem;
       letter-spacing: .16em;
       text-transform: uppercase;
-      color: var(--gray);
-    }
-
-    /* ── Experience timeline ── */
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-
-    .tl-item {
-      display: grid;
-      grid-template-columns: 180px 1px 1fr;
-      gap: 0 2rem;
-      position: relative;
-    }
-
-    .tl-date {
-      text-align: right;
-      padding: 2rem 0 2.5rem;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .75rem;
-      color: var(--gray);
-      letter-spacing: .06em;
-      padding-top: 2.1rem;
-    }
-
-    .tl-spine {
-      display: flex; flex-direction: column; align-items: center;
-    }
-
-    .tl-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--gold);
-      border: 2px solid var(--navy);
-      box-shadow: 0 0 0 3px rgba(200,150,62,.25);
-      flex-shrink: 0;
-      margin-top: 2.3rem;
-      z-index: 1;
-    }
-
-    .tl-line {
-      flex: 1;
-      width: 1px;
-      background: var(--border);
-      min-height: 20px;
-    }
-
-    .tl-item:last-child .tl-line { display: none; }
-
-    .tl-card {
-      background: rgba(18, 22, 26, 0.62);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.8rem 2rem;
-      margin: 1.5rem 0 1.5rem;
-      transition: border-color var(--transition), transform var(--transition);
-    }
-
-    .tl-card:hover {
-      border-color: rgba(200,150,62,.55);
-      transform: translateX(4px);
-    }
-
-    .tl-company {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .72rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: .4rem;
-    }
-
-    .tl-role {
-      font-size: 1.15rem;
-      color: var(--white);
-      margin-bottom: .3rem;
-    }
-
-    .tl-meta {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .75rem;
-      color: var(--gray);
-      margin-bottom: 1rem;
-    }
-
-    .tl-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: .55rem;
-    }
-
-    .tl-bullets li {
-      font-size: .88rem;
-      color: var(--text);
-      padding-left: 1.2rem;
-      position: relative;
-      line-height: 1.6;
-    }
-
-    .tl-bullets li::before {
-      content: '—';
-      position: absolute; left: 0;
-      color: var(--gold);
-      font-size: .7rem;
-      top: .15rem;
-    }
-
-    .tl-highlight {
-      color: var(--gold-lt);
-      font-weight: 600;
-    }
-
-    /* ── Education ── */
-    .edu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .edu-card {
-      background: rgba(18, 22, 26, 0.62);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2.2rem 2rem;
-      transition: border-color var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .edu-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .edu-card:hover { border-color: rgba(200,150,62,.55); }
-    .edu-card:hover::before { opacity: 1; }
-
-    .edu-school {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .72rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: .6rem;
-    }
-
-    .edu-degree {
-      font-size: 1.1rem;
-      color: var(--white);
-      margin-bottom: .3rem;
-      font-style: italic;
-    }
-
-    .edu-years {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .78rem;
-      color: var(--gray);
-      margin-bottom: 1.2rem;
-    }
-
-    .edu-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: .5rem;
-    }
-
-    .edu-bullets li {
-      font-size: .85rem;
-      color: var(--text);
-      padding-left: 1.2rem;
-      position: relative;
-      line-height: 1.55;
-    }
-
-    .edu-bullets li::before {
-      content: '·';
-      position: absolute; left: .2rem;
-      color: var(--gold);
-      font-size: 1.1rem;
-      line-height: 1.4;
-    }
-
-    /* ── Skills ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-    }
-
-    .skill-card {
-      background: rgba(18, 22, 26, 0.62);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.8rem;
-      transition: border-color var(--transition), transform var(--transition);
-    }
-
-    .skill-card:hover {
-      border-color: rgba(200,150,62,.5);
-      transform: translateY(-3px);
-    }
-
-    .skill-icon {
-      font-size: 1.6rem;
-      margin-bottom: .9rem;
-      display: block;
-    }
-
-    .skill-name {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .82rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: .6rem;
-    }
-
-    .skill-desc {
-      font-size: .83rem;
-      color: var(--gray);
-      line-height: 1.55;
+      color: rgba(245,236,215,.45);
     }
 
     /* ── About ── */
+    #about { background: var(--cream); }
     .about-layout {
       display: grid;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: .96rem;
+      color: var(--text-lt);
+      margin-bottom: 1.3rem;
+      line-height: 1.85;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-img-wrap {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(44,26,14,.22);
+    }
+    .about-img-wrap::before {
+      content: '';
+      display: block; padding-top: 120%;
+    }
+    /* CSS barn illustration placeholder */
+    .about-img-inner {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          #E8620A 0%, #D04A08 18%, #8B2A05 35%,
+          #3A1A08 55%, #1A2810 72%, #0E1A0A 100%
+        );
+      display: flex; align-items: flex-end; justify-content: center;
+    }
+    .about-img-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(245,236,215,.4);
+      padding: 1rem;
+      text-align: center;
+    }
+    .about-highlight {
+      margin-top: 2rem;
+      padding: 1.5rem 2rem;
+      border-left: 3px solid var(--amber);
+      background: rgba(212,136,58,.06);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .about-highlight p {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--bark);
+      line-height: 1.65;
+      margin: 0 !important;
+    }
+
+    /* ── Events ── */
+    #events { background: var(--cream-dk); }
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .event-card {
+      background: var(--cream);
+      border: 1px solid rgba(212,136,58,.18);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+    }
+    .event-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(44,26,14,.15);
+      border-color: rgba(212,136,58,.5);
+    }
+    .event-img {
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .event-img-concerts {
+      background: linear-gradient(135deg, #1A0A2E 0%, #3A1A5A 40%, #6A1A08 100%);
+    }
+    .event-img-weddings {
+      background: linear-gradient(135deg, #2A1A08 0%, #8B4513 40%, #D4883A 100%);
+    }
+    .event-img-reunions {
+      background: linear-gradient(135deg, #0A1A08 0%, #1E3020 40%, #3A5A2A 100%);
+    }
+    .event-body { padding: 2rem 1.8rem 2.2rem; }
+    .event-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .event-name {
+      font-size: 1.35rem;
+      color: var(--bark);
+      margin-bottom: .5rem;
+    }
+    .event-desc {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .85rem;
+      color: var(--text-lt);
+      line-height: 1.65;
+    }
+    .event-tag {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .65rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--amber-dk);
+      border: 1px solid rgba(160,96,42,.3);
+      padding: .3rem .8rem;
+      border-radius: 999px;
+    }
+
+    /* ── Grounds ── */
+    #grounds { background: var(--cream); }
+    .grounds-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 4rem;
       align-items: start;
     }
-
-    .about-text p {
-      font-size: .95rem;
-      color: var(--text);
-      margin-bottom: 1.2rem;
-      line-height: 1.8;
+    .grounds-features {
+      display: flex; flex-direction: column; gap: 1.2rem;
     }
-
-    .about-aside {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .aside-card {
-      background: rgba(18, 22, 26, 0.62);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
+    .feature-item {
+      display: flex; gap: 1.4rem; align-items: flex-start;
+      padding: 1.6rem;
+      background: var(--cream-dk);
+      border: 1px solid rgba(212,136,58,.15);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      transition: border-color var(--ease), background var(--ease);
+    }
+    .feature-item:hover {
+      border-color: rgba(212,136,58,.45);
+      background: rgba(212,136,58,.04);
+    }
+    .feature-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+    .feature-text {}
+    .feature-name {
+      font-size: 1.05rem;
+      color: var(--bark);
+      margin-bottom: .3rem;
+    }
+    .feature-desc {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .83rem;
+      color: var(--text-lt);
+      line-height: 1.6;
     }
 
-    .aside-title {
+    .grounds-map {
+      position: sticky; top: 90px;
+    }
+    .grounds-card {
+      background: var(--bark);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(44,26,14,.2);
+    }
+    .grounds-card-header {
+      padding: 2rem;
+      border-bottom: 1px solid rgba(212,136,58,.15);
+    }
+    .grounds-card-title {
       font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: .68rem;
-      letter-spacing: .2em;
+      letter-spacing: .24em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: .8rem;
+      color: var(--amber);
+      margin-bottom: .4rem;
     }
-
-    .aside-items {
+    .grounds-card-h {
+      font-size: 1.3rem;
+      color: var(--cream);
+    }
+    .grounds-list {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: .4rem;
+      padding: 1.5rem 2rem;
+      display: flex; flex-direction: column; gap: .8rem;
     }
-
-    .aside-items li {
-      font-size: .83rem;
-      color: var(--text);
-      padding-left: 1rem;
+    .grounds-list li {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .84rem;
+      color: rgba(245,236,215,.65);
+      padding-left: 1.4rem;
       position: relative;
+      line-height: 1.55;
+    }
+    .grounds-list li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--amber);
+      font-size: .7rem;
+      top: .15rem;
+    }
+    .grounds-badge {
+      margin: 0 2rem 2rem;
+      padding: 1.2rem 1.5rem;
+      background: rgba(212,136,58,.1);
+      border: 1px solid rgba(212,136,58,.25);
+      border-radius: 6px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .78rem;
+      color: var(--amber-lt);
+      line-height: 1.55;
+      text-align: center;
     }
 
-    .aside-items li::before {
-      content: '›';
-      position: absolute; left: 0;
-      color: var(--gold);
+    /* ── Location ── */
+    #location { background: var(--bark); }
+    #location .section-title { color: var(--cream); }
+    #location .section-eyebrow { color: var(--amber); }
+    .location-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
     }
+    .location-info {
+      color: rgba(245,236,215,.65);
+    }
+    .location-info p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .9rem;
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+    }
+    .location-detail {
+      display: flex; flex-direction: column; gap: .8rem;
+      margin-top: 2rem;
+    }
+    .loc-item {
+      display: flex; gap: 1rem; align-items: center;
+      padding: 1rem 1.2rem;
+      background: rgba(212,136,58,.06);
+      border: 1px solid rgba(212,136,58,.12);
+      border-radius: 6px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .83rem;
+      color: rgba(245,236,215,.65);
+    }
+    .loc-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .loc-label { color: var(--amber-lt); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: .15rem; }
 
     /* ── Contact ── */
     #contact {
-      text-align: center;
-      padding: 6rem 2.5rem;
-      max-width: 700px;
-      margin: 0 auto;
+      background: linear-gradient(135deg, #1A0E08 0%, #2C1A0E 50%, #1A2010 100%);
     }
-
-    .contact-title {
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      color: var(--white);
-      margin-bottom: 1rem;
+    .contact-wrap {
+      max-width: 760px; margin: 0 auto; text-align: center;
     }
-
+    #contact .section-eyebrow { justify-content: center; }
+    #contact .section-eyebrow::before { display: none; }
+    .contact-title { font-size: clamp(2rem, 4vw, 3rem); color: var(--cream); font-weight: 400; margin-bottom: 1rem; }
     .contact-sub {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
       font-size: .95rem;
-      color: var(--gray);
-      margin-bottom: 2.5rem;
+      color: rgba(245,236,215,.55);
+      margin-bottom: 3rem;
+      line-height: 1.7;
     }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1rem; margin-bottom: 3rem;
     }
+    .contact-card {
+      padding: 2rem 1.2rem;
+      background: rgba(212,136,58,.06);
+      border: 1px solid rgba(212,136,58,.15);
+      border-radius: var(--radius);
+      transition: border-color var(--ease), background var(--ease);
+    }
+    .contact-card:hover {
+      border-color: rgba(212,136,58,.4);
+      background: rgba(212,136,58,.1);
+    }
+    .contact-card-icon { font-size: 1.8rem; margin-bottom: .8rem; display: block; }
+    .contact-card-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: .4rem;
+    }
+    .contact-card-val {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .84rem; color: rgba(245,236,215,.7);
+    }
+    .contact-card-val a { color: rgba(245,236,215,.7); text-decoration: none; }
+    .contact-card-val a:hover { color: var(--amber-lt); }
+    .contact-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
     /* ── Footer ── */
     footer {
-      border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 2rem;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-size: .72rem;
-      letter-spacing: .1em;
-      color: var(--gray);
+      background: var(--bark);
+      border-top: 1px solid rgba(212,136,58,.12);
+      padding: 2.5rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
     }
+    .footer-logo {
+      font-size: .95rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+    .footer-sub {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .65rem;
+      letter-spacing: .14em;
+      color: rgba(212,136,58,.4);
+      text-transform: uppercase;
+    }
+    .footer-right {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      color: rgba(245,236,215,.25);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ── Fade animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
 
     /* ── Responsive ── */
-    @media (max-width: 860px) {
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 900px) {
+      .stats-inner { grid-template-columns: repeat(2,1fr); }
       .stat:nth-child(2) { border-right: none; }
-      .stat:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
-      .stat:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
-
-      .tl-item { grid-template-columns: 90px 1px 1fr; }
-      .edu-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: repeat(2, 1fr); }
-      .about-layout { grid-template-columns: 1fr; }
+      .stat:nth-child(3) { border-top: 1px solid rgba(212,136,58,.15); }
+      .stat:nth-child(4) { border-right: none; border-top: 1px solid rgba(212,136,58,.15); }
+      .about-layout, .grounds-layout, .location-layout { grid-template-columns: 1fr; }
+      .about-img-wrap { display: none; }
+      .events-grid { grid-template-columns: repeat(2,1fr); }
+      .grounds-map { position: static; }
     }
 
-    @media (max-width: 580px) {
+    @media (max-width: 620px) {
       nav { padding: 0 1.2rem; }
       .nav-links { display: none; }
-      section { padding: 5rem 1.2rem; }
-      .tl-item { grid-template-columns: 0 1px 1fr; }
-      .tl-date { display: none; }
-      .skills-grid { grid-template-columns: 1fr; }
-      .stats-inner { grid-template-columns: repeat(2, 1fr); padding: 0 1rem; }
-    }
-
-    /* ── Fade-in animation ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: none;
+      .section-wrap { padding: 5rem 1.2rem; }
+      .hero-content { padding: 0 1.2rem 5rem; }
+      .events-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+      .stats-inner { padding: 0 1rem; }
     }
   </style>
 </head>
 <body>
 
-<canvas id="shader-bg"></canvas>
-
 <!-- ── Navigation ── -->
 <nav>
-  <span class="nav-logo">Riley Nolan</span>
+  <div class="nav-logo">
+    <span class="nav-logo-main">The Bar-N</span>
+    <span class="nav-logo-sub">Lake Toxaway, NC</span>
+  </div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#grounds">Grounds</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#contact">Book</a></li>
   </ul>
+  <a href="#contact" class="nav-cta">Inquire Now</a>
 </nav>
 
 <!-- ── Hero ── -->
 <div id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-rule"></div>
+  <div class="hero-photo-fallback"></div>
+  <div class="hero-photo"></div>
+
   <div class="hero-content">
-    <p class="hero-eyebrow">Brand Manager &nbsp;·&nbsp; Strategist &nbsp;·&nbsp; Army Veteran</p>
-    <h1 class="hero-name">Riley<br><span>Nolan</span></h1>
+    <p class="hero-eyebrow">Lake Toxaway, North Carolina</p>
+    <h1 class="hero-name">The<br><em>Bar-N</em></h1>
     <p class="hero-sub">
-      West Point graduate and Wharton MBA driving brand growth, strategic impact, and data-informed decisions — from Iraq to BCG to Hershey.
+      A historic family barn nestled in the Blue Ridge Mountains — where every event becomes a cherished memory under an open sky.
     </p>
-    <div class="hero-tags">
-      <span class="tag">Brand Strategy</span>
-      <span class="tag">P&amp;L Management</span>
-      <span class="tag">Operations</span>
-      <span class="tag">AI &amp; Data</span>
-      <span class="tag">Leadership</span>
-      <span class="tag">Consulting</span>
+    <div class="hero-badges">
+      <span class="badge">Weddings</span>
+      <span class="badge">Concerts</span>
+      <span class="badge">Reunions</span>
+      <span class="badge">Private Events</span>
+      <span class="badge">Fishing</span>
     </div>
     <div class="hero-cta">
-      <a href="#experience" class="btn btn-primary">View My Work</a>
-      <a href="mailto:rcnolan@wharton.upenn.edu" class="btn btn-outline">Get in Touch</a>
+      <a href="#events" class="btn btn-primary">Explore Events</a>
+      <a href="#contact" class="btn btn-outline">Book Your Date</a>
     </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Discover</span>
+    <div class="scroll-arrow"></div>
   </div>
 </div>
 
 <!-- ── Stats ── -->
 <div id="stats">
   <div class="stats-inner">
-    <div class="stat fade-in">
-      <span class="stat-num">$84M+</span>
-      <span class="stat-label">Revenue Impact at BCG</span>
+    <div class="stat fade-up">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Memories Made</span>
     </div>
-    <div class="stat fade-in">
-      <span class="stat-num">7%</span>
-      <span class="stat-label">Market Share Growth at Hershey</span>
+    <div class="stat fade-up">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Seasons of Beauty</span>
     </div>
-    <div class="stat fade-in">
-      <span class="stat-num">800+</span>
-      <span class="stat-label">Personnel Led in the Army</span>
+    <div class="stat fade-up">
+      <span class="stat-num">2</span>
+      <span class="stat-label">Fishing Spots</span>
     </div>
-    <div class="stat fade-in">
-      <span class="stat-num">7 yrs</span>
-      <span class="stat-label">U.S. Army Service</span>
+    <div class="stat fade-up">
+      <span class="stat-num">1</span>
+      <span class="stat-label">Nolan Family Tradition</span>
     </div>
   </div>
 </div>
 
 <!-- ── About ── -->
 <section id="about">
-  <div class="section-header fade-in">
-    <span class="section-label">About</span>
-    <div class="section-rule"></div>
-  </div>
-  <div class="about-layout">
-    <div class="about-text fade-in">
-      <h2 class="section-title">Operator. Strategist.<br>Brand Builder.</h2>
-      <p>
-        I'm a Wharton MBA candidate (graduating 2026) with a deep background spanning the U.S. Army, management consulting, AI, and consumer brands. I lead with data, execute with precision, and build teams that outperform expectations.
-      </p>
-      <p>
-        My career has taken me from leading engineer platoons in the 4th Infantry Division to pioneering space operations for U.S. Central Command — then into the boardrooms of BCG and the brand teams of The Hershey Company. Along the way I contributed to a Y Combinator startup training frontier AI agents, blending technical fluency with strategic vision.
-      </p>
-      <p>
-        At every stop, I've turned ambiguous, high-stakes situations into measurable outcomes: $9M captured at BCG, 7% market share grown at Hershey, 21 high-priority assets protected in the Middle East. I believe the best leaders build the systems and people around them, not just the results.
-      </p>
-    </div>
-    <div class="about-aside fade-in">
-      <div class="aside-card">
-        <p class="aside-title">Interests</p>
-        <ul class="aside-items">
-          <li>Army football (beat Navy!)</li>
-          <li>Mountain biking with my toothless rescue Dachshund</li>
-          <li>Creative mixology</li>
-        </ul>
+  <div class="section-wrap">
+    <div class="about-layout">
+      <div class="fade-up">
+        <div class="section-header">
+          <p class="section-eyebrow">Our Story</p>
+          <h2 class="section-title">Built by family.<br><em>Shared with all.</em></h2>
+        </div>
+        <div class="about-text">
+          <p>
+            Deep in the heart of Transylvania County, surrounded by the ancient ridges of the Blue Ridge Mountains, The Bar-N stands as a testament to the Nolan family's love of the land — and of bringing people together.
+          </p>
+          <p>
+            Ben Nolan and the Nolan family have cultivated this property into one of the most breathtaking event destinations in Western North Carolina. From golden summer sunsets that paint the sky in fire to crisp autumn mornings when the mountains blush red and orange, The Bar-N offers a backdrop that no ballroom can rival.
+          </p>
+          <p>
+            Whether you're celebrating a once-in-a-lifetime wedding, gathering your clan for a family reunion, or simply casting a line in the pond on a quiet afternoon — you're not just visiting a place. You're becoming part of its story.
+          </p>
+        </div>
+        <div class="about-highlight">
+          <p>"The best things in life happen when you open your barn doors and let people in."</p>
+        </div>
       </div>
-      <div class="aside-card">
-        <p class="aside-title">Volunteering</p>
-        <ul class="aside-items">
-          <li>Service Dog Trainer (in training) — Warrior Canine Connection</li>
-          <li>MBA Admissions Ambassador — Service to School</li>
-        </ul>
-      </div>
-      <div class="aside-card">
-        <p class="aside-title">Contact</p>
-        <ul class="aside-items">
-          <li><a href="mailto:rcnolan@wharton.upenn.edu">rcnolan@wharton.upenn.edu</a></li>
-          <li><a href="https://www.linkedin.com/in/rileynolan1" target="_blank">linkedin.com/in/rileynolan1</a></li>
-          <li>(850) 207-5702</li>
-        </ul>
+      <div class="about-img-wrap fade-up">
+        <div class="about-img-inner">
+          <span class="about-img-label">Add your photo as barn.jpg</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Experience ── -->
-<section id="experience" style="max-width:1100px;margin:0 auto;">
-  <div class="section-header fade-in">
-    <span class="section-label">Experience</span>
-    <div class="section-rule"></div>
-  </div>
+<div class="divider"></div>
 
-  <div class="timeline">
-
-    <!-- Hershey -->
-    <div class="tl-item fade-in">
-      <div class="tl-date">July 2026 –<br>Present</div>
-      <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-card">
-        <p class="tl-company">The Hershey Company &nbsp;(NYSE: HSY) · Hershey, PA</p>
-        <h3 class="tl-role">Associate Brand Manager</h3>
-        <p class="tl-meta">July 2026 – Present</p>
-        <ul class="tl-bullets">
-          <li>Direct P&amp;L management for a multimillion-dollar brand portfolio, driving <span class="tl-highlight">7% market share growth</span> through the design and execution of <span class="tl-highlight">13 integrated, data-driven marketing campaigns</span> and consumer engagement strategies.</li>
-        </ul>
-      </div>
+<!-- ── Events ── -->
+<section id="events" style="background: var(--cream-dk);">
+  <div class="section-wrap">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">Events</p>
+      <h2 class="section-title">Every occasion<br><em>deserves this view.</em></h2>
     </div>
 
-    <!-- Halluminate -->
-    <div class="tl-item fade-in">
-      <div class="tl-date">Apr – Jul<br>2026</div>
-      <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-card">
-        <p class="tl-company">Halluminate (Y Combinator Cohort S25) · Remote</p>
-        <h3 class="tl-role">AI Training &amp; Strategy Consultant</h3>
-        <p class="tl-meta">April – July 2026</p>
-        <ul class="tl-bullets">
-          <li>Designed <span class="tl-highlight">17 end-to-end simulations</span> to train frontier AI agents on finance and consulting workflows, including TAM analysis and expansion strategy; synthesized messy data ecosystems (SKU-level logs, call transcripts) to evaluate professional judgment.</li>
-          <li>Architected source materials and ground truth benchmarks for product innovation and operations use cases, using implicit reasoning triggers to <span class="tl-highlight">improve agent accuracy by 2 percentage points</span> across consulting and product management evaluations.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="events-grid">
 
-    <!-- BCG -->
-    <div class="tl-item fade-in">
-      <div class="tl-date">Jun – Aug<br>2025</div>
-      <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-card">
-        <p class="tl-company">Boston Consulting Group (BCG) · Philadelphia, PA</p>
-        <h3 class="tl-role">Summer Consultant</h3>
-        <p class="tl-meta">June – August 2025</p>
-        <ul class="tl-bullets">
-          <li>Captured <span class="tl-highlight">$9M in incremental revenue</span> with $75M projected uplift by launching a value-based pricing strategy for a Fortune 100 B2B distributor through benchmarking competitors, establishing category strategies, and quantifying customer value drivers.</li>
-          <li>Increased daily package throughput from <span class="tl-highlight">92k to 96k cases</span> at a national value retailer distribution center serving 600+ stores by improving mechanical uptime, optimizing labor strategy, and upskilling frontline leaders in performance management.</li>
-        </ul>
+      <div class="event-card fade-up">
+        <div class="event-img event-img-weddings"></div>
+        <div class="event-body">
+          <span class="event-icon">💍</span>
+          <h3 class="event-name">Weddings</h3>
+          <p class="event-desc">
+            Exchange vows in a space where hand-hewn timber, mountain air, and golden light create a ceremony no couple will ever forget. The Bar-N's rustic elegance pairs perfectly with both intimate ceremonies and grand celebrations.
+          </p>
+          <span class="event-tag">Ceremonies &amp; Receptions</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Army CENTCOM -->
-    <div class="tl-item fade-in">
-      <div class="tl-date">2022 –<br>2024</div>
-      <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-card">
-        <p class="tl-company">United States Army · Fort Carson, CO &amp; Doha, Qatar</p>
-        <h3 class="tl-role">Space Operations Officer, U.S. Central Command</h3>
-        <p class="tl-meta">2022 – 2024</p>
-        <ul class="tl-bullets">
-          <li>Led a cross-functional team of <span class="tl-highlight">13 U.S., Australian, and British military personnel</span> to pioneer and implement strategic initiatives, enhancing process quality by 25%.</li>
-          <li>Developed data-driven strategies by analyzing KPIs across four teams, increasing talent development capacity by 15% and improving inter-organizational communication by 30%.</li>
-          <li>Identified emerging threats and shaped strategic outcomes for time-sensitive missions in Iraq and Syria, safeguarding <span class="tl-highlight">21 high-priority assets</span> and discovering three new enemy hideouts.</li>
-          <li>Expanded DoD-level policy frameworks to integrate space technologies into cyber, special operations, and interagency missions, influencing reassessment of national defense goals in the Middle East.</li>
-        </ul>
+      <div class="event-card fade-up">
+        <div class="event-img event-img-concerts"></div>
+        <div class="event-body">
+          <span class="event-icon">🎵</span>
+          <h3 class="event-name">Concerts &amp; Live Music</h3>
+          <p class="event-desc">
+            Acoustic sets under the stars, full-band performances with the mountains as your backdrop — The Bar-N's open layout and natural acoustics make it a one-of-a-kind live music venue in the Blue Ridge.
+          </p>
+          <span class="event-tag">Live Performances</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Army XO -->
-    <div class="tl-item fade-in">
-      <div class="tl-date">2021 –<br>2022</div>
-      <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-card">
-        <p class="tl-company">United States Army · 1st Space Brigade</p>
-        <h3 class="tl-role">Company Executive Officer</h3>
-        <p class="tl-meta">2021 – 2022</p>
-        <ul class="tl-bullets">
-          <li>Led the unit as acting commander during a critical two-month transition period, improving operational readiness by 5% and achieving <span class="tl-highlight">100% of training and operational goals</span>.</li>
-          <li>Designed and executed three innovative training programs, reducing new employee onboarding time by 20% and saving $30K.</li>
-          <li>Optimized resource management by implementing new tracking software, uncovering <span class="tl-highlight">$400K of previously unaccounted equipment</span> and reallocating 150 pieces to partner organizations.</li>
-          <li>Led end-to-end strategic planning for 40 missions, shaping outcomes for three senior generals and increasing brand awareness for space warfare technologies.</li>
-        </ul>
+      <div class="event-card fade-up">
+        <div class="event-img event-img-reunions"></div>
+        <div class="event-body">
+          <span class="event-icon">🏡</span>
+          <h3 class="event-name">Family Reunions</h3>
+          <p class="event-desc">
+            Sprawling grounds, shade trees, open fields, and a pond — everything a family needs to reconnect, play, fish, and feast. The Bar-N is built for the kind of day that gets retold at every reunion after.
+          </p>
+          <span class="event-tag">Private Gatherings</span>
+        </div>
       </div>
-    </div>
 
-    <!-- Army Platoon Leader -->
-    <div class="tl-item fade-in">
-      <div class="tl-date">2019 –<br>2021</div>
-      <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
-      <div class="tl-card">
-        <p class="tl-company">United States Army · 4th Infantry Division</p>
-        <h3 class="tl-role">Engineer Platoon Leader</h3>
-        <p class="tl-meta">2019 – 2021</p>
-        <ul class="tl-bullets">
-          <li>Directed large-scale training programs for <span class="tl-highlight">800 personnel</span> in construction and demolitions, accomplishing program management and operational excellence initiatives.</li>
-          <li>Drove cross-functional communication during COVID-19, increasing participation in knowledge-sharing events by over <span class="tl-highlight">300%</span>.</li>
-          <li>Led project management for four iterations of a high-pressure training program, certifying 15 individuals and three teams <span class="tl-highlight">ahead of schedule</span> for deployment to eastern Europe.</li>
-        </ul>
-      </div>
     </div>
-
   </div>
 </section>
 
-<!-- ── Education ── -->
-<section id="education">
-  <div class="section-header fade-in">
-    <span class="section-label">Education</span>
-    <div class="section-rule"></div>
-  </div>
-  <div class="edu-grid">
+<div class="divider"></div>
 
-    <div class="edu-card fade-in">
-      <p class="edu-school">The Wharton School · University of Pennsylvania</p>
-      <p class="edu-degree">Master of Business Administration</p>
-      <p class="edu-years">Philadelphia, PA &nbsp;·&nbsp; 2024 – 2026</p>
-      <p class="edu-years">Major: Operations, Information &amp; Decisions</p>
-      <ul class="edu-bullets">
-        <li>Recipient, Goldman Sachs Scholars Fund — merit scholarship for exceptional leadership, teamwork, and academic achievement</li>
-        <li>Captain, Wharton Rugby Football Club</li>
-        <li>Wharton Admissions Fellow</li>
-        <li>Member: Veteran's Club, Marketing Club, Food Club</li>
-        <li>Selected Coursework: Brand Management, Consumer Behavior, Visual Marketing, AI in Marketing, Retail Merchandising</li>
-      </ul>
+<!-- ── Grounds ── -->
+<section id="grounds">
+  <div class="section-wrap">
+    <div class="grounds-layout">
+      <div class="fade-up">
+        <div class="section-header">
+          <p class="section-eyebrow">The Grounds</p>
+          <h2 class="section-title">More than a barn.<br><em>A whole world.</em></h2>
+        </div>
+        <div class="grounds-features">
+
+          <div class="feature-item">
+            <span class="feature-icon">🏚️</span>
+            <div class="feature-text">
+              <p class="feature-name">The Barn</p>
+              <p class="feature-desc">A beautifully restored structure with soaring ceilings, exposed timber frames, and a white metal roof — functional for any event, stunning in every photo.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🎣</span>
+            <div class="feature-text">
+              <p class="feature-name">The Pond</p>
+              <p class="feature-desc">A peaceful, stocked pond perfect for fishing, reflection, or simply watching dragonflies skim the water while the mountains stand watch behind you.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🌊</span>
+            <div class="feature-text">
+              <p class="feature-name">The Stream</p>
+              <p class="feature-desc">A clear mountain stream winds through the property — wade in, cast a fly, or just listen to the water. Fishing in the shadow of the Blue Ridge is a memory you keep forever.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🌾</span>
+            <div class="feature-text">
+              <p class="feature-name">Open Meadows</p>
+              <p class="feature-desc">Sweeping green fields provide ample space for tents, games, dancing, and letting kids run free. The land breathes, and so will you.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🌲</span>
+            <div class="feature-text">
+              <p class="feature-name">Mountain Treeline</p>
+              <p class="feature-desc">Framed by a thick forest backdrop, the property offers natural privacy and that unmistakable Blue Ridge ambiance — wild, quiet, and achingly beautiful.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="grounds-map fade-up">
+        <div class="grounds-card">
+          <div class="grounds-card-header">
+            <p class="grounds-card-title">Property Highlights</p>
+            <h3 class="grounds-card-h">The Bar-N at a Glance</h3>
+          </div>
+          <ul class="grounds-list">
+            <li>Restored timber-frame barn with white metal roof</li>
+            <li>Stocked fishing pond on property</li>
+            <li>Mountain stream running through the grounds</li>
+            <li>Open meadow space for tents &amp; outdoor events</li>
+            <li>Stunning treeline backdrop for photography</li>
+            <li>Blue Ridge Mountain views from every angle</li>
+            <li>Ample parking for large gatherings</li>
+            <li>Serene, private setting away from the road</li>
+          </ul>
+          <div class="grounds-badge">
+            Located in Transylvania County —<br>
+            the "Land of Waterfalls" in Western North Carolina
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="edu-card fade-in">
-      <p class="edu-school">United States Military Academy at West Point</p>
-      <p class="edu-degree">Bachelor of Science — Honors</p>
-      <p class="edu-years">West Point, NY &nbsp;·&nbsp; 2015 – 2019</p>
-      <p class="edu-years">Double Major: Economics &amp; Sociology</p>
-      <ul class="edu-bullets">
-        <li>Top Graduate, Sociology Major</li>
-        <li>Top 20%, Economics Major</li>
-        <li>Dean's List — all 8 semesters</li>
-        <li>Captain, Climbing Club</li>
-        <li>Elected Delegate, Honor Committee</li>
-        <li>Executive Officer, McDonald Leaders of Character Conference</li>
-      </ul>
-    </div>
-
   </div>
 </section>
 
-<!-- ── Skills ── -->
-<section id="skills">
-  <div class="section-header fade-in">
-    <span class="section-label">Capabilities</span>
-    <div class="section-rule"></div>
-  </div>
-  <div class="skills-grid">
+<div class="divider"></div>
 
-    <div class="skill-card fade-in">
-      <span class="skill-icon">📊</span>
-      <p class="skill-name">Brand Strategy &amp; P&amp;L</p>
-      <p class="skill-desc">End-to-end brand management, integrated campaign design, market share analysis, and portfolio-level P&amp;L ownership.</p>
+<!-- ── Location ── -->
+<section id="location" style="background: var(--bark); padding: 7rem 0;">
+  <div class="section-wrap">
+    <div class="location-layout">
+      <div class="fade-up">
+        <div class="section-header">
+          <p class="section-eyebrow">Location</p>
+          <h2 class="section-title">Lake Toxaway,<br><em>North Carolina</em></h2>
+        </div>
+        <div class="location-info">
+          <p>
+            Nestled in Transylvania County at over 3,000 feet elevation, Lake Toxaway is one of the most scenically preserved communities in the entire Appalachian region. The Bar-N sits amid this natural splendor — close enough to be convenient, remote enough to feel like an escape.
+          </p>
+          <p>
+            The drive in winds through mountain roads flanked by hardwood forests, arriving to an open sky that seems to go on forever. Come at golden hour and you'll understand why this place is so hard to leave.
+          </p>
+        </div>
+        <div class="location-detail">
+          <div class="loc-item">
+            <span class="loc-icon">📍</span>
+            <div>
+              <span class="loc-label">Location</span>
+              Lake Toxaway, NC — Transylvania County
+            </div>
+          </div>
+          <div class="loc-item">
+            <span class="loc-icon">🏔️</span>
+            <div>
+              <span class="loc-label">Setting</span>
+              Blue Ridge Mountains, ~3,000 ft elevation
+            </div>
+          </div>
+          <div class="loc-item">
+            <span class="loc-icon">🚗</span>
+            <div>
+              <span class="loc-label">Nearby</span>
+              Brevard, Cashiers, Highlands — 20–40 min
+            </div>
+          </div>
+          <div class="loc-item">
+            <span class="loc-icon">✈️</span>
+            <div>
+              <span class="loc-label">Airports</span>
+              Asheville Regional (AVL) — ~1.5 hours
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up" style="display:flex; flex-direction:column; gap:1.5rem;">
+        <div style="background: rgba(212,136,58,.06); border: 1px solid rgba(212,136,58,.15); border-radius: var(--radius); overflow: hidden;">
+          <div style="background: linear-gradient(135deg, #1A2A18 0%, #2C4A2A 40%, #1E3020 100%); height: 280px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:.8rem;">
+            <span style="font-size:3rem;">🗺️</span>
+            <span style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:.62rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(212,136,58,.5);">Lake Toxaway, NC</span>
+          </div>
+          <div style="padding:1.5rem 1.8rem;">
+            <p style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:.8rem; color:rgba(245,236,215,.5); line-height:1.6;">
+              Contact us for exact directions. We'll send you the full address and a scenic route guide when you make your inquiry.
+            </p>
+          </div>
+        </div>
+        <div style="background: rgba(212,136,58,.06); border: 1px solid rgba(212,136,58,.15); border-radius: var(--radius); padding:1.8rem;">
+          <p style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--amber); margin-bottom:.8rem;">Local Area</p>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:.55rem;">
+            <li style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:.83rem; color:rgba(245,236,215,.6); padding-left:1.2rem; position:relative;">
+              <span style="position:absolute;left:0;color:var(--amber);">·</span>
+              Gorges State Park — hiking &amp; waterfalls nearby
+            </li>
+            <li style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:.83rem; color:rgba(245,236,215,.6); padding-left:1.2rem; position:relative;">
+              <span style="position:absolute;left:0;color:var(--amber);">·</span>
+              Lake Toxaway Country Club &amp; Marina
+            </li>
+            <li style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:.83rem; color:rgba(245,236,215,.6); padding-left:1.2rem; position:relative;">
+              <span style="position:absolute;left:0;color:var(--amber);">·</span>
+              Brevard Music Center — world-class performances
+            </li>
+            <li style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:.83rem; color:rgba(245,236,215,.6); padding-left:1.2rem; position:relative;">
+              <span style="position:absolute;left:0;color:var(--amber);">·</span>
+              Pisgah National Forest — endless outdoor adventure
+            </li>
+            <li style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:.83rem; color:rgba(245,236,215,.6); padding-left:1.2rem; position:relative;">
+              <span style="position:absolute;left:0;color:var(--amber);">·</span>
+              Eclectic dining &amp; lodging in Cashiers &amp; Highlands
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-
-    <div class="skill-card fade-in">
-      <span class="skill-icon">🔍</span>
-      <p class="skill-name">Strategic Consulting</p>
-      <p class="skill-desc">Value-based pricing, competitive benchmarking, category strategy, and quantifying customer value drivers for Fortune 100 clients.</p>
-    </div>
-
-    <div class="skill-card fade-in">
-      <span class="skill-icon">🤖</span>
-      <p class="skill-name">AI &amp; Data Strategy</p>
-      <p class="skill-desc">Training frontier AI agents, constructing ground truth benchmarks, evaluating professional judgment workflows, and synthesizing complex data ecosystems.</p>
-    </div>
-
-    <div class="skill-card fade-in">
-      <span class="skill-icon">⚙️</span>
-      <p class="skill-name">Operations &amp; Logistics</p>
-      <p class="skill-desc">Distribution center throughput optimization, labor strategy, resource management, and frontline leader upskilling at national scale.</p>
-    </div>
-
-    <div class="skill-card fade-in">
-      <span class="skill-icon">🌐</span>
-      <p class="skill-name">Cross-Functional Leadership</p>
-      <p class="skill-desc">Leading multinational, multi-agency teams in high-stakes environments; building cohesion across diverse organizations under pressure.</p>
-    </div>
-
-    <div class="skill-card fade-in">
-      <span class="skill-icon">📈</span>
-      <p class="skill-name">Data-Driven Decision Making</p>
-      <p class="skill-desc">KPI design and analysis, talent performance metrics, behavioral data evaluation, and translating insights into measurable organizational outcomes.</p>
-    </div>
-
   </div>
 </section>
 
 <!-- ── Contact ── -->
-<section id="contact">
-  <div class="fade-in">
-    <p class="hero-eyebrow" style="margin-bottom:1rem;">Let's Connect</p>
-    <h2 class="contact-title">Ready to build something great?</h2>
-    <p class="contact-sub">Whether it's a brand challenge, a strategic opportunity, or just a conversation — I'd love to hear from you.</p>
-    <div class="contact-links">
-      <a href="mailto:rcnolan@wharton.upenn.edu" class="btn btn-primary">Send an Email</a>
-      <a href="https://www.linkedin.com/in/rileynolan1" target="_blank" class="btn btn-outline">LinkedIn</a>
+<section id="contact" style="background: linear-gradient(135deg, #1A0E08 0%, #2C1A0E 50%, #1A2010 100%); padding: 7rem 0;">
+  <div class="section-wrap">
+    <div class="contact-wrap">
+      <div class="fade-up">
+        <p class="section-eyebrow" style="justify-content:center; margin-bottom:.7rem;">
+          Book Your Event
+        </p>
+        <h2 class="contact-title">Ready to make<br>something unforgettable?</h2>
+        <p class="contact-sub">
+          Whether you're planning a wedding, a concert, a family reunion, or a private gathering — we'd love to have you at The Bar-N. Reach out and let's start the conversation.
+        </p>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <span class="contact-card-icon">📧</span>
+            <p class="contact-card-label">Email</p>
+            <p class="contact-card-val"><a href="mailto:info@thebarn-laketoxaway.com">info@thebarn-laketoxaway.com</a></p>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card-icon">📍</span>
+            <p class="contact-card-label">Location</p>
+            <p class="contact-card-val">Lake Toxaway, NC</p>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card-icon">👨‍👩‍👧‍👦</span>
+            <p class="contact-card-label">Host</p>
+            <p class="contact-card-val">Ben Nolan &amp; The Nolan Family</p>
+          </div>
+        </div>
+
+        <div class="contact-btns">
+          <a href="mailto:info@thebarn-laketoxaway.com" class="btn btn-primary">Send an Inquiry</a>
+          <a href="#about" class="btn btn-outline">Learn More</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ── Footer ── -->
 <footer>
-  <p>© 2026 Riley Nolan &nbsp;·&nbsp; Philadelphia, PA</p>
+  <div>
+    <div class="footer-logo">The Bar-N</div>
+    <div class="footer-sub">Lake Toxaway, North Carolina</div>
+  </div>
+  <div class="footer-right">© 2026 The Nolan Family &nbsp;·&nbsp; All rights reserved</div>
 </footer>
 
 <script>
-  // ── WebGL Shader Background ──
-  (function () {
-    const canvas = document.getElementById('shader-bg');
-    const gl = canvas.getContext('webgl');
-    if (!gl) return;
-
-    const vsSource = `
-      attribute vec4 aVertexPosition;
-      void main() { gl_Position = aVertexPosition; }
-    `;
-
-    const fsSource = `
-      precision highp float;
-      uniform vec2 iResolution;
-      uniform float iTime;
-
-      const float overallSpeed = 0.2;
-      const float gridSmoothWidth = 0.015;
-      const float axisWidth = 0.05;
-      const float majorLineWidth = 0.025;
-      const float minorLineWidth = 0.0125;
-      const float majorLineFrequency = 5.0;
-      const float minorLineFrequency = 1.0;
-      const float scale = 5.0;
-      const vec4 lineColor = vec4(0.65, 0.46, 0.16, 1.0);
-      const float minLineWidth = 0.01;
-      const float maxLineWidth = 0.2;
-      const float lineSpeed = 1.0 * overallSpeed;
-      const float lineAmplitude = 1.0;
-      const float lineFrequency = 0.2;
-      const float warpSpeed = 0.2 * overallSpeed;
-      const float warpFrequency = 0.5;
-      const float warpAmplitude = 1.0;
-      const float offsetFrequency = 0.5;
-      const float offsetSpeed = 1.33 * overallSpeed;
-      const float minOffsetSpread = 0.6;
-      const float maxOffsetSpread = 2.0;
-      const int linesPerGroup = 16;
-
-      #define drawCircle(pos, radius, coord) smoothstep(radius + gridSmoothWidth, radius, length(coord - (pos)))
-      #define drawSmoothLine(pos, halfWidth, t) smoothstep(halfWidth, 0.0, abs(pos - (t)))
-      #define drawCrispLine(pos, halfWidth, t) smoothstep(halfWidth + gridSmoothWidth, halfWidth, abs(pos - (t)))
-
-      float random(float t) {
-        return (cos(t) + cos(t * 1.3 + 1.3) + cos(t * 1.4 + 1.4)) / 3.0;
-      }
-
-      float getPlasmaY(float x, float horizontalFade, float offset) {
-        return random(x * lineFrequency + iTime * lineSpeed) * horizontalFade * lineAmplitude + offset;
-      }
-
-      void main() {
-        vec2 uv = gl_FragCoord.xy / iResolution.xy;
-        vec2 space = (gl_FragCoord.xy - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
-
-        float horizontalFade = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
-        float verticalFade   = 1.0 - (cos(uv.y * 6.28) * 0.5 + 0.5);
-
-        space.y += random(space.x * warpFrequency + iTime * warpSpeed) * warpAmplitude * (0.5 + horizontalFade);
-        space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * horizontalFade;
-
-        vec4 lines = vec4(0.0);
-        vec4 bgColor1 = vec4(0.07, 0.08, 0.09, 1.0);
-        vec4 bgColor2 = vec4(0.11, 0.12, 0.14, 1.0);
-
-        for (int l = 0; l < linesPerGroup; l++) {
-          float normalizedLineIndex = float(l) / float(linesPerGroup);
-          float offsetTime     = iTime * offsetSpeed;
-          float offsetPosition = float(l) + space.x * offsetFrequency;
-          float rand       = random(offsetPosition + offsetTime) * 0.5 + 0.5;
-          float halfWidth  = mix(minLineWidth, maxLineWidth, rand * horizontalFade) / 2.0;
-          float offset     = random(offsetPosition + offsetTime * (1.0 + normalizedLineIndex)) * mix(minOffsetSpread, maxOffsetSpread, horizontalFade);
-          float linePos    = getPlasmaY(space.x, horizontalFade, offset);
-          float line       = drawSmoothLine(linePos, halfWidth, space.y) / 2.0
-                           + drawCrispLine(linePos, halfWidth * 0.15, space.y);
-
-          float circleX = mod(float(l) + iTime * lineSpeed, 25.0) - 12.0;
-          vec2  circlePos = vec2(circleX, getPlasmaY(circleX, horizontalFade, offset));
-          float circle  = drawCircle(circlePos, 0.01, space) * 4.0;
-
-          lines += (line + circle) * lineColor * rand;
-        }
-
-        vec4 color = mix(bgColor1, bgColor2, uv.x);
-        color *= verticalFade;
-        color.a = 1.0;
-        color += lines;
-        gl_FragColor = color;
-      }
-    `;
-
-    function compileShader(type, src) {
-      const s = gl.createShader(type);
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(s));
-        gl.deleteShader(s);
-        return null;
-      }
-      return s;
-    }
-
-    const program = gl.createProgram();
-    gl.attachShader(program, compileShader(gl.VERTEX_SHADER, vsSource));
-    gl.attachShader(program, compileShader(gl.FRAGMENT_SHADER, fsSource));
-    gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      console.error(gl.getProgramInfoLog(program)); return;
-    }
-
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-
-    const aPos   = gl.getAttribLocation(program, 'aVertexPosition');
-    const uRes   = gl.getUniformLocation(program, 'iResolution');
-    const uTime  = gl.getUniformLocation(program, 'iTime');
-
-    function resize() {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    const t0 = Date.now();
-    function render() {
-      gl.useProgram(program);
-      gl.uniform2f(uRes, canvas.width, canvas.height);
-      gl.uniform1f(uTime, (Date.now() - t0) / 1000);
-      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-      gl.enableVertexAttribArray(aPos);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      requestAnimationFrame(render);
-    }
-    requestAnimationFrame(render);
-  })();
-
-  // Intersection Observer for fade-in
+  // Fade-in on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1076,23 +1064,36 @@
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  // Stagger children in grids
+  document.querySelectorAll('.events-grid, .grounds-features').forEach(grid => {
+    grid.querySelectorAll('.fade-up').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.12) + 's';
+    });
+  });
 
-  // Active nav link highlight on scroll
+  // Active nav on scroll
   const sections = document.querySelectorAll('section[id], #hero');
   const navLinks = document.querySelectorAll('.nav-links a');
-
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(s => {
       if (window.scrollY >= s.offsetTop - 90) current = s.id;
     });
     navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--amber-lt)' : '';
     });
   });
+
+  // Hide scroll hint after scroll
+  const scrollHint = document.querySelector('.scroll-hint');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) scrollHint.style.opacity = '0';
+    else scrollHint.style.opacity = '1';
+  }, { passive: true });
 </script>
 </body>
 </html>
